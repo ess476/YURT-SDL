@@ -1,0 +1,29 @@
+Build Steps
+------
+A pre-build version is included with this library, but you can build one yourself!
+
+1. Run: `./install_ubuntu.sh` or `install_centos.sh` depending on the platform you're running.
+2. Run `./build.sh` this will build both development, release, and release PIC static versions, as well as debug and release shared library versions of (YURT) SDL.
+
+
+Usage
+------
+To run a program on YURT display, specifiy the `DISPLAY` and `SDL_DISPLAY_START` environment variables.
+
+For instance, to run on display 3, run: `DISPLAY=:0.3 SDL_DISPLAY_START=3 ./my-sdl-app`
+
+If SDL_DISPLAY_START is not specified the default is 0.
+
+Tricks
+------
+You can either have your project build and use SDL library or use LD_PRELOAD.
+
+If you're porting an application and don't want to mess with its build system, LD_PRELOAD is probably easier. Note this ONLY works if SDL is being loaded as a shared library LD_PRELOAD will cause the program to use the YURT version of SDL rather than the default one used by the project.
+
+For instance, to run on display 3, run: `LD_PRELOAD=/path/to/YURT-SDL/build-SDL-Shared-Release/libSDL2-2.0.so DISPLAY=:0.3 SDL_DISPLAY_START=3 ./my-sdl-app`
+
+You can also use that `libSDL2-2.0.so.0` in the root of the project directory.
+
+Notes
+------
+...
